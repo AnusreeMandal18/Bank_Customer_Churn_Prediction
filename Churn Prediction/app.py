@@ -2,21 +2,30 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-# Load saved model
-with open("gb_model.pkl", "rb") as file:
+import os
+
+# Get folder where app.py is located
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Load model
+with open(os.path.join(BASE_DIR, "gb_model.pkl"), "rb") as file:
     model = pickle.load(file)
-    
+
 # Load scaler
-with open("scaler.pkl", "rb") as file:
+with open(os.path.join(BASE_DIR, "scaler.pkl"), "rb") as file:
     scaler = pickle.load(file)
-    
-with open("feature_names.pkl", "rb") as file:
+
+# Load feature names
+with open(os.path.join(BASE_DIR, "feature_names.pkl"), "rb") as file:
     feature_names = pickle.load(file)
-    
-    st.title("Bank Customer Churn Prediction System")
+
+st.title("Bank Customer Churn Prediction System")
 
 st.write("Predict customer churn probability and risk level")
+
 st.header("Enter Customer Details")
+    
+   
 year= 2026
 credit_score = st.number_input("Credit Score", 300, 900, 650)
 
